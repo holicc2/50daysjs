@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css?family=Heebo:300&display=swap");
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #fff;
+	font-family: "Hebeo", sans-serif;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	overflow: hidden;
+	margin: 0;
+}
+
+.container {
+	width: 600px;
+}
+
+.random-number {
+	margin: 30px auto;
+	text-align: center;
+	height: auto;
+	font-size: 24px;
+	color: red;
+	display: block;
+	max-width: 600px;
+}
+
+.random-number h3 {
+	filter: drop-shadow(2px 2px #000);
+}
+
+#guess {
+	margin-top: 20px;
+	width: 100px;
+	padding: .5rem;
+}
+
+#guessBtn {
+	margin-left: 10px;
+	padding: 0.25rem;
+}
+
+#randomBtn {
+	margin-top: 25px;
+	padding: .75rem;
+}
+
+.feedback.very-far { color: darkred; }
+.feedback.far      { color: orange; }
+.feedback.warm     { color: yellow; }
+.feedback.close    { color: green; }
+.feedback.very-close { color: greenyellow; }
+.feedback.winner   { color: lime; }

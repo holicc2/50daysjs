@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Random Number Game</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://kit.fontawesome.com/d25443f3e3.js" crossorigin="anonymous"></script>
+  </head>
+    <h2>Random Number Game</h2>
+    <p>Click for the computer to build a random number between 1-100. The rules are you must keep guessing until you get it.</p>
+    <small>Good Luck</small>
+    <div class="random-number"><h3></h3></div>
+    <div class="guessing">
+        <input id="guessNum" type="number" min="1" max="100" step="1" required>
+        <button id="guessBtn">Guess</button>
+    </div>
+    <button id="randomBtn">Click Me</button>
+
+    <script src="script.js" async defer></script>
+  </body>
+</html>

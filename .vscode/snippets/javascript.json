@@ -1,0 +1,21 @@
+{
+  "Arrow function (short)": {
+    "prefix": "afn",
+    "body": [
+      "($1) => {",
+      "  $0",
+      "}"
+    ],
+    "description": "Insert an arrow function"
+  },
+
+  "addEventListener (arrow)": {
+    "prefix": "el",
+    "body": [
+      "addEventListener('$1', ($2) => {",
+      "  $0",
+      "})"
+    ],
+    "description": "Insert addEventListener with an arrow function"
+  }
+}
