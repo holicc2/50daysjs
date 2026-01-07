@@ -1,44 +1,54 @@
-const loveMe = document.querySelector('.loveMe');
-const times = document.querySelector('#times');
+const textEl = document.getElementById('text')
+const speedEl = document.getElementById('speed')
+const inputEl = document.getElementById('input')
+const goBtn = document.getElementById('inputBtn')
+let text = 'We Love Programming!'
+let idx = 1
+let speed = 300 / speedEl.value
+let input = ''
+let timerId = null
 
-let clickTime = 0;
-let timesClicked = 0;
+writeText()
 
-loveMe.addEventListener('click', (e) => {
-	if (clickTime === 0) {
-		clickTime = new Date().getTime();
-	} else {
-		if (new Date().getTime() - clickTime < 800) {
-			createHeart(e);
-			clickTime = 0;
-		} else {
-			clickTime = new Date().getTime();
-		}
-	}
+function writeText() {
+    textEl.innerText = text.slice(0, idx)
+
+    idx++;
+
+    if (idx > text.length) {
+        idx = 1;
+    }
+
+    // store timer id so we can clear/restart the loop safely
+    timerId = setTimeout(writeText, speed)
+}
+
+speedEl.addEventListener('input', (e) => {
+    speed = 300 / e.target.value
+
+    // restart loop immediately so new speed takes effect
+    if (timerId) {
+        clearTimeout(timerId)
+        timerId = null
+        writeText()
+    }
 });
 
-const createHeart = (e) => {
-	const heart = document.createElement('i');
-	heart.classList.add('fas');
-	heart.classList.add('fa-heart');
+inputEl.addEventListener('input', (e) => {
+    input = e.target.value;
+})
 
-	const x = e.clientX;
-	const y = e.clientY;
+// allow pressing Enter to trigger Go
+inputEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') goBtn.click()
+})
 
-	const leftOffset = e.target.offsetLeft;
-	const topOffset = e.target.offsetTop;
-
-	const xInside = x - leftOffset;
-	const yInside = y - topOffset;
-
-	console.log(xInside, yInside);
-
-	heart.style.top = `${yInside}px`;
-	heart.style.left = `${xInside}px`;
-
-	loveMe.appendChild(heart);
-
-	times.innerHTML = ++timesClicked;
-
-    setTimeout(() => heart.remove(), 1000)
-};
+goBtn.addEventListener('click', () => {
+    text = input || ''
+    idx = 1
+    if (timerId) {
+        clearTimeout(timerId)
+        timerId = null
+    }
+    writeText()
+})

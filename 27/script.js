@@ -1,31 +1,39 @@
-const sliderContainer = document.querySelector('.slider-container');
-const slideRight = document.querySelector('.right-slide');
-const slideLeft = document.querySelector('.left-slide');
-const upButton = document.querySelector('.up-button');
-const downButton = document.querySelector('.down-button');
-const slidesLength = slideRight.querySelectorAll('div').length
+const button = document.getElementById('button')
+const toasts = document.getElementById('toasts')
 
-let activeSlideIndex = 0;
+const messages = [
+    'Message One',
+    'Message Two',
+    'Message Three',
+    'Message Four'
+]
 
-slideLeft.style.top = `-${(slidesLength - 1) * 100}vh`
+const types = [
+    'info',
+    'success',
+    'error'
+]
 
-upButton.addEventListener('click', () => changeSlide('up'))
-downButton.addEventListener('click', () => changeSlide('down'))
+function getRandomType() {
+    return types[Math.floor(Math.random() * types.length)]
+}
 
-const changeSlide = (direction) => {
-    const sliderHeight = sliderContainer.clientHeight;
-    if(direction === 'up') {
-        activeSlideIndex++;
-        if(activeSlideIndex > slidesLength - 1) {
-            activeSlideIndex = 0;
-        }
-    }
-    else if(direction == 'down') {
-        activeSlideIndex--;
-        if(activeSlideIndex < 0) {
-            activeSlideIndex = slidesLength - 1;
-        }    
-    }
-    slideRight.style.transform = `translateY(-${activeSlideIndex * sliderHeight}px)`
-    slideLeft.style.transform = `translateY(${activeSlideIndex * sliderHeight}px)`
+button.addEventListener('click', () => createNotification())
+
+function createNotification(message = null, type = null) {
+    const notif = document.createElement('div')
+    notif.classList.add('toast')
+    notif.classList.add(type ? type : getRandomType())
+
+    notif.innerText = message ? message : getRandomMessage()
+
+    toasts.appendChild(notif)
+
+    setTimeout(() => {
+        notif.remove()
+    }, 3000)
+}
+
+function getRandomMessage() {
+    return messages[Math.floor(Math.random() * messages.length)]
 }

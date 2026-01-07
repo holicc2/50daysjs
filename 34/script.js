@@ -1,73 +1,41 @@
-const addBtn = document.getElementById('add');
-const clearBtn = document.getElementById('clear');
+const nums = document.querySelectorAll('.nums span');
+const counter = document.querySelector('.counter');
+const finalMessage = document.querySelector('.final');
+const replay = document.querySelector('#replay');
+const originalDOM = document.body.innerHTML;
 
-const notes = JSON.parse(localStorage.getItem('notes'));
+runAnimation();
 
-if (notes) {
-	notes.forEach((note) => addNewNote(note));
-}
+function resetDOM() {
+	counter.classList.remove('hide');
+	finalMessage.classList.remove('show');
 
-addBtn.addEventListener('click', () => addNewNote('Hello World'));
-
-function addNewNote(text = '') {
-	const note = document.createElement('div');
-	note.classList.add('note');
-
-	note.innerHTML = `
-     <div class="tools">
-        <button class="edit"><i class="fas fa-edit"></i></button>
-        <button class="delete"><i class="fas fa-trash-alt"></i></button>
-      </div>
-      
-    
-    <div class="main ${text ? '' : 'hidden'}"></div>
-    <textarea class="${text ? 'hidden' : ''}"></textarea>
-    `;
-
-	const editBtn = note.querySelector('.edit');
-	const deleteBtn = note.querySelector('.delete');
-	const main = note.querySelector('.main');
-	const textArea = note.querySelector('textarea');
-
-	textArea.value = text;
-	main.innerHTML = marked(text);
-
-	deleteBtn.addEventListener('click', () => {
-		note.remove();
-
-		updateLS();
+	nums.forEach((num) => {
+		num.classList.value = '';
 	});
 
-	clearBtn.addEventListener('click', () => {
-        const noteslist = document.querySelectorAll('.note');
-        noteslist.forEach(note => {
-            note.remove();
-        })
-        updateLS();
-    });
-
-	editBtn.addEventListener('click', () => {
-		main.classList.toggle('hidden');
-		textArea.classList.toggle('hidden');
-	});
-
-	textArea.addEventListener('input', (e) => {
-		const { value } = e.target;
-
-		main.innerHTML = marked(value);
-
-		updateLS();
-	});
-
-	document.body.appendChild(note);
+	nums[0].classList.add('in');
 }
 
-function updateLS() {
-	const notesText = document.querySelectorAll('textarea');
+function runAnimation() {
+	nums.forEach((num, idx) => {
+		const nextToLast = nums.length - 1;
 
-	const notes = [];
-
-	notesText.forEach((note) => notes.push(note.value));
-
-	localStorage.setItem('notes', JSON.stringify(notes));
+		num.addEventListener('animationend', (e) => {
+			if (e.animationName == 'goIn' && idx !== nextToLast) {
+				num.classList.remove('in');
+				num.classList.add('out');
+			} else if (e.animationName === 'goOut' && num.nextElementSibling) {
+				num.nextElementSibling.classList.add('in');
+			} else {
+				counter.classList.add('hide');
+				finalMessage.classList.add('show');
+			}
+		});
+	});
 }
+
+replay.addEventListener('click', () => {
+	resetDOM();
+	runAnimation();
+});

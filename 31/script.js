@@ -1,54 +1,83 @@
-const textEl = document.getElementById('text')
-const speedEl = document.getElementById('speed')
-const inputEl = document.getElementById('input')
-const goBtn = document.getElementById('inputBtn')
-let text = 'We Love Programming!'
-let idx = 1
-let speed = 300 / speedEl.value
-let input = ''
-let timerId = null
+const resultEl = document.getElementById('result');
+const lengthEl = document.getElementById('length');
+const uppercaseEl = document.getElementById('uppercase');
+const lowercaseEl = document.getElementById('lowercase');
+const numbersEl = document.getElementById('numbers');
+const symbolsEl = document.getElementById('symbols');
+const generateEl = document.getElementById('generate');
+const clipboardEl = document.getElementById('clipboard');
 
-writeText()
+const randomFunc = {
+	lower: getRandomLower,
+	upper: getRandomUpper,
+	number: getRandomNumber,
+	symbol: getRandomSymbol,
+};
 
-function writeText() {
-    textEl.innerText = text.slice(0, idx)
+clipboardEl.addEventListener('click', () => {
+    const textarea = document.createElement('textarea')
+    const password = resultEl.innerText
 
-    idx++;
+    if(!password) { return }
 
-    if (idx > text.length) {
-        idx = 1;
-    }
+    textarea.value = password
+    document.body.appendChild(textarea)
+    textarea.select()
+    document.execCommand('copy')
+    textarea.remove()
+    alert('Password copied to clipboard!')
+})
 
-    // store timer id so we can clear/restart the loop safely
-    timerId = setTimeout(writeText, speed)
-}
-
-speedEl.addEventListener('input', (e) => {
-    speed = 300 / e.target.value
-
-    // restart loop immediately so new speed takes effect
-    if (timerId) {
-        clearTimeout(timerId)
-        timerId = null
-        writeText()
-    }
+generateEl.addEventListener('click', () => {
+	const length = +lengthEl.value;
+	const hasLower = lowercaseEl.checked;
+	const hasUpper = uppercaseEl.checked;
+	const hasNumber = numbersEl.checked;
+	const hasSymbol = symbolsEl.checked;
+	resultEl.innerText = generatePassword(
+		hasLower,
+		hasUpper,
+		hasNumber,
+		hasSymbol,
+		length
+	);
 });
 
-inputEl.addEventListener('input', (e) => {
-    input = e.target.value;
-})
+function generatePassword(lower, upper, number, symbol, length) {
+	let generatedPassword = '';
+	const typesCount = lower + upper + number + symbol;
+	const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter(
+		(item) => Object.values(item)[0]
+	);
+	if (typesCount === 0) {
+		return '';
+	}
 
-// allow pressing Enter to trigger Go
-inputEl.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') goBtn.click()
-})
+	for (let i = 0; i < length; i += typesCount) {
+		typesArr.forEach((type) => {
+			const funcName = Object.keys(type)[0];
+			generatedPassword += randomFunc[funcName]();
+		});
+	}
 
-goBtn.addEventListener('click', () => {
-    text = input || ''
-    idx = 1
-    if (timerId) {
-        clearTimeout(timerId)
-        timerId = null
-    }
-    writeText()
-})
+	const finalPassword = generatedPassword.slice(0, length);
+
+	return finalPassword;
+}
+
+function getRandomLower() {
+	return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+}
+
+function getRandomUpper() {
+	return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+}
+
+function getRandomNumber() {
+	return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
+}
+
+function getRandomSymbol() {
+	const symbols = '!@#$%^&*(){}[]=<>/,.';
+	return symbols[Math.floor(Math.random() * symbols.length)];
+}

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Heebo&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 * {
 	box-sizing: border-box;
@@ -6,117 +6,52 @@
 
 body {
 	background-color: #fff;
-	font-family: 'Hebeo', sans-serif;
+	font-family: 'Roboto', sans-serif;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	height: 100vh;
-	overflow: hidden;
 	margin: 0;
 }
 
-h4 {
-	font-size: 20px;
-	margin: 5px;
-	text-transform: uppercase;
+img {
+	width: 500px;
+	height: 500px;
+	object-fit: cover;
 }
 
-.counter {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	text-align: center;
-}
-
-.counter.hide {
-	transform: translate(-50%, -50%) scale(0);
-	animation: hide 0.2s ease-out;
-}
-
-@keyframes hide {
-	0% {
-		transform: translate(-50%, -50%) scale(1);
-	}
-
-	100% {
-		transform: translate(-50%, -50%) scale(0);
-	}
-}
-
-.final {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%) scale(0);
-	text-align: center;
-}
-
-.final.show {
-	transform: translate(-50%, -50%) scale(1);
-	animation: show 0.2s ease-out;
-}
-
-@keyframes show {
-	0% {
-		transform: translate(-50%, -50%) scale(0);
-	}
-
-	30% {
-		transform: translate(-50%, -50%) scale(1.4);
-	}
-
-	100% {
-		transform: translate(-50%, -50%) scale(1);
-	}
-}
-
-.nums {
-	color: #3498db;
-	font-size: 50px;
-	position: relative;
+.carousel {
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+	height: 530px;
+	width: 500px;
 	overflow: hidden;
-	width: 250px;
-	height: 50px;
 }
 
-.nums span {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%) rotate(120deg);
-	transform-origin: bottom center;
+.image-container {
+	display: flex;
+	transform: translateX(0);
+	transition: transform 0.5s ease-in-out;
 }
 
-.nums span.in {
-	transform: translate(-50%, -50%) rotate(0deg);
-	animation: goIn .5s ease-in-out;
+.buttons-container {
+	display: flex;
+	justify-content: space-between;
 }
 
-.nums span.out {
-	animation: goOut .5s ease-in-out;
+.btn {
+	background-color: rebeccapurple;
+	color: #fff;
+	border: none;
+	padding: 0.5rem;
+	cursor: pointer;
+	width: 49.5%;
 }
 
-@keyframes goIn {
-	0% {
-	transform: translate(-50%, -50%) rotate(120deg);	
-	}
-	30% {
-	transform: translate(-50%, -50%) rotate(-20deg);		
-	}
-	60% {
-	transform: translate(-50%, -50%) rotate(10deg);
-	}
-	100% {
-	transform: translate(-50%, -50%) rotate(0deg);		
-	}
+.btn:hover {
+	opacity: 0.9;
 }
 
-@keyframes goOut {
-	0% {
-	transform: translate(-50%, -50%) rotate(0deg);	
-	}
-	60% {
-	transform: translate(-50%, -50%) rotate(20deg);
-	}
-	100% {
-	transform: translate(-50%, -50%) rotate(-120deg);		
-	}
+.btn:focus {
+	outline: none;
 }
+

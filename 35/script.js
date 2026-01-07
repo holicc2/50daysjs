@@ -1,41 +1,40 @@
-const nums = document.querySelectorAll('.nums span');
-const counter = document.querySelector('.counter');
-const finalMessage = document.querySelector('.final');
-const replay = document.querySelector('#replay');
-const originalDOM = document.body.innerHTML;
+const imgs = document.getElementById('imgs');
+const leftBtn = document.getElementById('left');
+const rightBtn = document.getElementById('right');
 
-runAnimation();
+const img = document.querySelectorAll('#imgs img');
 
-function resetDOM() {
-	counter.classList.remove('hide');
-	finalMessage.classList.remove('show');
+let idx = 0;
 
-	nums.forEach((num) => {
-		num.classList.value = '';
-	});
+let interval = setInterval(run, 2000);
 
-	nums[0].classList.add('in');
+function run() {
+	idx++;
+	changeImage();
 }
 
-function runAnimation() {
-	nums.forEach((num, idx) => {
-		const nextToLast = nums.length - 1;
-
-		num.addEventListener('animationend', (e) => {
-			if (e.animationName == 'goIn' && idx !== nextToLast) {
-				num.classList.remove('in');
-				num.classList.add('out');
-			} else if (e.animationName === 'goOut' && num.nextElementSibling) {
-				num.nextElementSibling.classList.add('in');
-			} else {
-				counter.classList.add('hide');
-				finalMessage.classList.add('show');
-			}
-		});
-	});
+function changeImage() {
+	if (idx > img.length - 1) {
+		idx = 0;
+	} else if (idx < 0) {
+		idx = img.length - 1;
+	}
+    imgs.style.transform = `translateX(${-idx * 500}px)`
 }
 
-replay.addEventListener('click', () => {
-	resetDOM();
-	runAnimation();
-});
+function resetInterval() {
+    clearInterval(interval);
+    interval = setInterval(run, 2000)
+}
+
+rightBtn.addEventListener('click', () => {
+    idx++;
+    changeImage();
+    resetInterval()
+})
+
+leftBtn.addEventListener('click', () => {
+    idx--;
+    changeImage();
+    resetInterval()
+})
