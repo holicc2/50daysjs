@@ -3,7 +3,7 @@ Based off a Udemy lesson by <a href="https://www.udemy.com/user/brad-traversy/">
 Their Githubs are <a href="https://github.com/bradtraversy">bradtraversy</a> and <a href="https://github.com/florinpop17">florinpop17</a>.<br>
 URL for course <a href="https://www.udemy.com/course/50-projects-50-days/">here.</a>
 
-<h2>Live Demos for each project.</h2>
+<h2>Live demos for each project.</h2>
 <ul><li>Day 01 - <a href="https://bassettgraphics.com/50daysjs/01/index.html">Expanding Cards</a></li>
 <li>Day 02 - <a href="https://bassettgraphics.com/50daysjs/02/index.html">Progress Steps</a></li>
 <li>Day 03 - <a href="https://bassettgraphics.com/50daysjs/03/index.html">Rotating Navigation</a></li>
